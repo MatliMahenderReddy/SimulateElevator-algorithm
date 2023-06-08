@@ -1,0 +1,148 @@
+                                                     Algorithm
+
+Step 1: Start
+
+Step 2: Import the required Java libraries for using a linked list and a queue
+         Define a class named "ElevatorRequest" to represent an elevator request
+                    
+                        class ElevatorRequest:
+
+                      Declare the Instance variables
+                        private  int requestedFloor;
+	                  private Direction direction;
+                         
+                 
+Step 3: Implement a constructor and getter methods for accessing the instance variables.
+
+     public int getRequestedFloor() {
+	        return requestedFloor;
+	    }
+
+	    public Direction getDirection() {
+	        return direction;
+	    }
+
+Step 4:  Define an enumeration named "Direction" to represent the direction in which the elevator moves (UP or DOWN).
+             
+
+              enum Direction {
+	              UP,
+	             DOWN
+	             }
+
+Step 5:  Create another ElevatorSimulator class this class represents the elevator simulator
+               It contains various constants.
+               (TIMEPERFLOOR, TIMEBOARDING, MAXCAPACITY, and NUMREQUESTS)
+
+              private static  int TIMEPERFLOOR = 5;
+	        private static  int TIMEBOARDING = 10;
+	        private static  int MAXCAPACITY = 5;
+	        private static  int NUMREQUESTS = 10;
+
+	        private int currentFloor;
+	        private Queue<ElevatorRequest> requestQueue;
+	        private int timer;
+
+Step 6: simulate Elevator method simulates the elevator operation. It runs in a loop until the request queue is empty.
+This while are include a one count is there when request the passengers are only 10 passengers are allowed otherwise elevator is stop.
+
+                       while (!requestQueue.isEmpty()) {
+	                
+If the elevator is already on the requested floor, process the request and continue to the next iteration.
+	                if (currentFloor == request.getRequestedFloor()) {
+	              processRequest(request);}
+
+   if condition true then request goining to Step7 
+
+           else {Direction direction = calculateDirection(currentFloor, request.getRequestedFloor());
+    Otherwise, calculate the direction in which the elevator needs to move based on the current and requested floors.
+               then direction  goining to Step9 
+         
+
+	                    moveElevator(direction);
+
+         if condition true then request go to Step8 
+
+	                }
+	            }
+ System.out.println("Simulation completed. Total time: " + timer + "   seconds.");
+	        }
+
+Step 7: Create processRequest method process a request when the elevator is already on the requested floor. It checks the direction of the request and the current floor to determine whether the elevator should move up or down.
+
+   if (request.getDirection() == Direction.UP && currentFloor != requestedFloor) {
+	                System.out.println("Moving from floor " + currentFloor + " to floor " + (currentFloor + 1));
+	                currentFloor++;
+	                timer += TIME_PER_FLOOR;
+
+It updates the currentFloor variable, increments the timer by the time it takes to move between floors
+
+	            } else if (request.getDirection() == Direction.DOWN && currentFloor != requestedFloor) {
+	                System.out.println("Moving from floor " + currentFloor + " to floor " + (currentFloor - 1));
+	                currentFloor--;
+	                timer += TIME_PER_FLOOR;
+
+It updates the currentFloor variable, decrements the timer by the time it takes to move between floors
+	            }
+
+	            System.out.println("Passengers boarding at floor " + currentFloor);
+	            timer += TIME_BOARDING;
+	        }
+
+
+Step 8: Create a moveElevator method moves the elevator in the specified direction. It updates the currentFloor variable, increments the timer by the time it takes to move between floors(TIMEPERFLOOR).
+
+   if (direction == Direction.UP) {
+	                System.out.println("Moving from floor " + currentFloor + " to floor " + (currentFloor + 1));
+	                currentFloor++;
+	                timer += TIME_PER_FLOOR;
+
+
+Step 9: Create a calculateDirection method calculate the direction in which the elevator needs to move based on the current floor and requested floor.If the requested floor is greater than the current floor, it returns Direction.UP. If the requested floor is less than the current floor, it returns Direction.DOWN. Otherwise, it returns null.    
+      if (requestedFloor > currentFloor) {
+	                return Direction.UP;
+	            } else if (requestedFloor < currentFloor) {
+	                return Direction.DOWN;
+	            } else {
+	                return null;
+	            }
+
+Step 10: mainMethod it creates an instance of the ElevatorSimulator class add some elevator request queue and simulateElevator method start the simulation.
+
+     ElevatorSimulator simulator = new ElevatorSimulator();
+
+simulator. requestQueue. Offer(new ElevatorRequest(2, Direction. UP));
+
+simulator. requestQueue. Offer(new ElevatorRequest(3, Direction.DOWN));
+
+ simulator.requestQueue.offer(new ElevatorRequest(0, Direction.DOWN));
+
+simulator.requestQueue.offer(new ElevatorRequest(1, Direction.DOWN));
+
+simulator.requestQueue.offer(new ElevatorRequest(3, Direction.DOWN));
+
+simulator.requestQueue.offer(new ElevatorRequest(0, Direction.UP));
+
+simulator.requestQueue.offer(new ElevatorRequest(2, Direction.DOWN));
+
+ simulator.requestQueue.offer(new ElevatorRequest(1, Direction.UP));
+
+simulator.requestQueue.offer(new ElevatorRequest(3, Direction.DOWN));
+
+ simulator.requestQueue.offer(new ElevatorRequest(3, Direction.DOWN));
+
+	    simulator.simulateElevator();
+
+            
+Step 11:  Stop
+
+               Output:
+             
+Moving from floor 0 to floor 1
+Moving from floor 1 to floor 2
+Moving from floor 2 to floor 3
+Passengers boarding at floor 3
+Simulation completed. Total time: 25 seconds.
+
+               
+
